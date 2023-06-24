@@ -1,0 +1,20 @@
+.ORIG x3000
+
+AND R4, R4 #0 ;NUMBER TO CONVERT
+AND R5, R5 #0 ;POW
+AND R6, R6 #0 ;RESULTING VALUE AFTER CONVERSION
+AND R7, R7 #0 ;TEMPORARY STORAGE
+
+FIRST_LOOP:
+  ;Load R4's rightmost value into R7. 
+  JSR MULT;Use R7 MULT R5, where R7 is Rightmost digit and R5 is current POW(1)
+  ;Add R5 to itself 3x for POWER. 
+  AND R7, R7, #0; RESET R7 to 0
+  ADD R7, R5, #0; 
+  ADD R7, R5, #0; 
+  ADD R7, R5, #0; Add R5 to R7 3 times. 
+  LD R5, R7; Set R5 to the new Power
+
+MULT:
+  ADD R6, R5, #0 ;ADD POWER to R6 based on R7, IE, in 10202: R6 = (1+1) + 0 + (9+9) + 0 + (81)
+  LOOP R7 times
